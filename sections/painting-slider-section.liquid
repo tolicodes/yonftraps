@@ -1,0 +1,76 @@
+<div class="swiper paint_slider">
+<!--   <div class="page-width-desktop paint_slider_container">
+    <p>Photo Gallery</p>
+    <h2 class="heading ">
+          The Art Gallery Of
+        </h2>
+    <h4 class="banner__sub_sub_heading">
+          <span>Michael Saviello</span>
+        </h4>
+    <a class="arrow_btn" href="#">
+          Read More
+          <span class="image-with-text__buttons_icon buttons_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.08 44.64"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M56.38,44.64a3,3,0,0,1-2.17-5.08L67.89,25.32H3a3,3,0,0,1,0-6H67.89L54.21,5.08A3,3,0,0,1,58.54.92l20.54,21.4L58.54,43.72A3,3,0,0,1,56.38,44.64Z"></path></g></g></svg>
+          </span> 
+        </a>
+  </div>   -->
+  <div class="row">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <div class="painting-image_slider">
+            {% if block.settings.image != blank %}
+            <div class="pain-img" style="background-image:url({{block.settings.image | img_url: ''}})"></div>
+            {% endif %}
+          </div> 
+        </div>
+        {% endfor %}
+      </div>
+      <div class="swiper-scrollbar animated zoomIn"></div>
+    </div>
+  </div>  
+</div>
+
+{% schema %}
+  {
+    "name": "Painting Slider Section",
+    "settings": [
+		
+	],
+	"blocks": [
+    {
+		"type": "heading",
+        "name": "Painting Slider",
+        "settings": [
+
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            }
+		]
+	}
+	],
+	"presets": [
+    {
+      "name": "Painting Slider Section"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<script>
+$( ".painting-title h3" ).click(function() {
+  $('.painting-title h3').removeClass('active');
+  $(this).addClass('active');
+  var datas = $(this).data('title');
+  $(".painting-image img").hide();
+ $(".painting-image img[data-title='" + datas + "']").show();
+});
+</script>

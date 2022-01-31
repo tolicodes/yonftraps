@@ -1,0 +1,71 @@
+<div class="page-width custom-space">
+  <div class="row">
+    <div class="painting-list">
+      <div class="painting-title grid__item-col-6">
+        {% for block in section.blocks %}
+        	{% if block.settings.title != blank and block.settings.image != blank and block.settings.collection_link != blank%}
+        		<h3 data-title="title-{{ forloop.index}}" {% if forloop.index == 1 %}class="active"{% endif %}>{{block.settings.title}}</h3>
+        	{% endif %}
+        {% endfor %}
+      </div>
+      
+      <div class="painting-image grid__item-col-6">
+        {% for block in section.blocks %}
+        	{% if block.settings.title != blank and block.settings.image != blank and block.settings.collection_link != blank %}
+        <a href="{{block.settings.collection_link}}"><img src="{{block.settings.image | img_url: ''}}" data-title="title-{{ forloop.index}}" {% if forloop.index == 1 %}style="display: block;"{% endif %}></a>
+        	{% endif %}
+        {% endfor %}
+      </div>  
+    </div>  
+  </div>  
+</div>  
+{% schema %}
+  {
+    "name": "Painting Saviello Section",
+    "settings": [
+	],
+	"blocks": [
+    {
+		"type": "heading",
+        "name": "Painting List",
+        "settings": [
+			{
+              "type": "text",
+              "id": "title",
+              "label": "Heading"
+            },
+			{
+              "type": "url",
+              "id": "collection_link",
+              "label": "Collection Link"
+            },
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            }
+		]
+	}
+	],
+	"presets": [
+    {
+      "name": "Painting Saviello Section"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<script>
+$( ".painting-title h3" ).click(function() {
+  $('.painting-title h3').removeClass('active');
+  $(this).addClass('active');
+  var datas = $(this).data('title');
+  $(".painting-image img").hide();
+ $(".painting-image img[data-title='" + datas + "']").show();
+});
+</script>

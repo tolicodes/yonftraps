@@ -1,0 +1,61 @@
+<div class="services-block">
+  <div class="page-width">
+    <div class="row">
+      <div class="services-listing grid">
+        {% for block in section.blocks %}
+    		{% if block.settings.title != blank and block.settings.content != blank %}
+              <div class="item-col-6">
+                <div class="services-list">
+                  <div class="content-block">
+                      <h3>{{block.settings.title}}</h3>
+                      {{block.settings.content}}
+                  </div>
+                </div>
+              </div>
+        	{% endif %}
+        {% endfor %}
+      
+      </div>  
+    </div>  
+  </div>  
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "The List Services List",
+    "settings": [
+	],
+	"blocks": [
+    {
+		"type": "heading",
+        "name": "Services List",
+        "settings": [
+
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title"
+            },
+			{
+              "type": "html",
+              "id": "content",
+              "label": "Content"
+            }
+		]
+	}
+	],
+	"presets": [
+      {
+        "name": "The List Services List"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

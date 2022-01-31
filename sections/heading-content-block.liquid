@@ -1,0 +1,46 @@
+<div class="latest-heading">
+  <div class="page-width-desktop">
+    <div class="row">
+      <div class="heading_inner">
+        {% if section.settings.title %}
+        	<h1>{{section.settings.title}}</h1>
+        {% endif %}
+        {{section.settings.content}}
+      </div>  
+    </div>  
+  </div>
+</div>  
+
+{% schema %}
+  {
+    "name": "Heading And Content Block",
+    "settings": [
+		{
+           "type": "text",
+           "id": "title",
+           "label": "Heading"
+        },
+		{
+           "type": "html",
+           "id": "content",
+           "label": "Content"
+        }
+	],
+	"presets": [
+    {
+      "name": "Heading And Content Block"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<!-- Initialize Swiper -->
+<script>
+
+</script>
+

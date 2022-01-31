@@ -1,0 +1,68 @@
+<div class="the-latest-news-block">
+  <div class="page-width">
+    <div class="row">
+      {% if section.settings.title %}
+      	<h2>{{section.settings.title}}</h2>
+      {% endif %}
+      
+      <div class="the-latest-news-listing grid">
+        {% assign blog = blogs[section.settings.the_list_news] %}
+        
+        {%- paginate blog.articles by 6 -%}
+        {%- for article in blog.articles -%}
+        <div class="item-col-6">
+          <div class="the-latest-news-list">
+            <div class="the-latest-news-block">
+				<div class="article-card-post-date">
+                    {{- article.published_at | time_tag: format: 'date' -}} 
+				</div>
+              	<img src="{{ article.image.src | img_url: '' }}" alt="{{ article.image.src.alt | escape }}">
+              
+              <div class="art-link"><a href="{{ article.url }}" title="{{ article.title | escape }}"><svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 14L11 7L0 0V14Z" fill="black"/></svg></a></div>
+		
+                  <p class="new_card__title" id="Article-{{ article.id }}">
+                    {{ article.title | escape }}
+                  </p>
+            </div>
+          </div>
+        </div>  
+        {% endfor %}
+       	
+      </div>  {% if paginate.pages > 6 %}
+        <div>{% include 'pagination' %}</div>
+        {% endif %}
+       	{%- endpaginate -%}
+    </div>  
+  </div>  
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "The List News Section",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+          "type": "blog",
+          "id": "the_list_news",
+          "label": "The List News"
+        }
+	],
+	"presets": [
+      {
+        "name": "The List News Section"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

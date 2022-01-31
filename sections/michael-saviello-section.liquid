@@ -1,0 +1,109 @@
+<div class="page-width ms-section sec-content-with-image-1 custom-space">
+  <div class="row">
+    
+    <div class="image-with-text">
+      {% if section.settings.main_title %}
+        <div class="image-with-text__caption">
+          <span class="horizontal_line"></span> <p>{{section.settings.main_title}}</p>
+        </div>
+      {% endif %}
+      {% if section.settings.title %}
+      <h2 class="heading">
+        {{ section.settings.title | escape }}
+      </h2>
+      {% endif %}	
+      {% if section.settings.sub_title %}
+      <p class="heading">
+        <em>{{ section.settings.sub_title | escape }}</em>
+      </p>
+      {% endif %}		
+      <div class="image-with-text-new">
+        <div class="image-with-text__text-item grid__item-col-6">
+          <div id="ImageWithText--{{ section.id }}" class="image-with-text__content image-with-text__content">
+            	  
+                  {{section.settings.content}}
+                  {%- if section.settings.button_label != blank and section.settings.button_link !=blank -%}
+                    <a {% if section.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ section.settings.button_link }}"{% endif %} class="arrow_btn">
+                      {{ section.settings.button_label | escape }} <span class="image-with-text__buttons_icon buttons_icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.08 44.64"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M56.38,44.64a3,3,0,0,1-2.17-5.08L67.89,25.32H3a3,3,0,0,1,0-6H67.89L54.21,5.08A3,3,0,0,1,58.54.92l20.54,21.4L58.54,43.72A3,3,0,0,1,56.38,44.64Z"></path></g></g></svg>
+                  </span>
+                    </a>
+                  {%- endif -%} 
+              
+          </div>
+        </div>
+        
+        <div class="image-with-text__media-item image-with-text__media-item grid__item-col-6">
+          <div class="image-with-text__media image-with-text__media video_block">
+            {%- if section.settings.image != blank -%}
+              <img src="{{ section.settings.image | img_url: '' }}">
+            	{% if section.settings.video_link %}	
+            		<a href="{{section.settings.video_link}}" data-fancybox=""><img src="https://cdn.shopify.com/s/files/1/0619/1104/0250/files/Vector.png" alt=" "></a>
+            	{% endif %}
+            {%- endif -%}
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>  
+
+{% schema %}
+  {
+    "name": "Michael Saviello Section",
+    "settings": [
+		{
+          "type": "text",
+          "id": "main_title",
+          "label": "Main Heading"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "video_link",
+          "label": "Youtube Video Link"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Content Heading"
+        },
+		{
+          "type": "html",
+          "id": "content",
+          "label": "Content"
+        },
+		{
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+ 		  "label": "Button Link"
+        }
+	],
+	"presets": [
+    {
+      "name": "Michael Saviello Section"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

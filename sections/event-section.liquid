@@ -1,0 +1,71 @@
+<div class="the-latest-event-block">
+  <div class="page-width">
+    <div class="row">
+      {% if section.settings.title %}
+      	<h2>{{section.settings.title}}</h2>
+      {% endif %}
+      {{section.settings.content}}
+      <div class="the-latest-event-listing">
+        {% assign blog = blogs[section.settings.event_list] %}
+        
+        {%- paginate blog.articles by 6 -%}
+        {%- for article in section.settings.event_list.articles -%}
+        <div class="item-col-12">
+          <div class="the-latest-event-list">
+            <div class="the-latest-event-block grid">
+			  <div class="event_img">
+              		<img src="{{ article.image.src | img_url: '' }}" alt="{{ article.image.src.alt | escape }}">
+              </div>
+              <div class="event_content">
+                  <h3 class="new_card__title" id="Article-{{ article.id }}">{{ article.title | escape }}</h3>
+                <p>{{ article.content | strip_html | truncatewords: 40 }}	</p>
+              	  <div class="read_more"><a href="{{ article.url }}" title="{{ article.title | escape }}">read more</a></div>	
+              </div>  
+            </div>
+          </div>
+        </div>  
+        {% endfor %}
+       {% if paginate.pages > 6 %}
+        <div>{% include 'pagination' %}</div>
+        {% endif %}
+       	{%- endpaginate -%}
+      </div>  
+    </div>  
+  </div>  
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Event Section",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+          "type": "html",
+          "id": "content",
+          "label": "Content"
+        },
+		{
+          "type": "blog",
+          "id": "event_list",
+          "label": "Event List"
+        }
+	],
+	"presets": [
+      {
+        "name": "Event Section"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

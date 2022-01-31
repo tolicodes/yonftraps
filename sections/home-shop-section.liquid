@@ -1,0 +1,151 @@
+<div class="shop_listing">
+  <div class="collection page-width"><span class="vertical_line"></span>
+    <div class="title-wrapper-with-link">
+      <div class="filter_wrapper">
+      	{% if section.settings.heading %}
+    		<h2 class="heading ">{{section.settings.heading}}</h2>
+      	{% endif %}
+        <div class="featured-products-menu-box grid--gapless">
+          <ul class="featured-products-menu menu">
+            {% for block in section.blocks %}
+            {% if block.settings.collection != '' and block.settings.heading !='' %}
+            <li class="menu-link">
+              <a href="#collection_tab_{{forloop.index}}">
+                {{block.settings.heading}}
+              </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>	
+      </div>  
+      	{% if section.settings.btn_lablel !='' and section.settings.btn_link != blank %}
+      	<div class="featured-products-btn mobile-hide">
+            <a href="{{section.settings.btn_link}}" title="{{section.settings.btn_lablel}}">
+              <img src="{{ section.settings.image | img_url: '' }}">
+              {{section.settings.btn_lablel}}
+              <span class="featured-products-menu__buttons_icon buttons_icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.08 44.64"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M56.38,44.64a3,3,0,0,1-2.17-5.08L67.89,25.32H3a3,3,0,0,1,0-6H67.89L54.21,5.08A3,3,0,0,1,58.54.92l20.54,21.4L58.54,43.72A3,3,0,0,1,56.38,44.64Z"></path></g></g></svg>
+              </span>
+            </a>
+    	</div>
+      	{% endif %}
+    </div>
+    
+    <div class="product_listing">
+    {% for block in section.blocks %}
+    {% if block.settings.collection != '' and block.settings.heading !='' %}
+    
+      {% assign  featured_collection= block.settings.collection %}
+      <div id="collection_tab_{{forloop.index}}" class="product_tab">	
+      <ul class="grid grid--2-col product-grid grid--2-col-tablet grid--4-col-desktop product_list">
+          {%- for product in collections[featured_collection].products -%}
+          <li class="grid__item">
+            {% render 'product-card',
+            product_card_product: product,
+              media_size: 'square',
+              show_secondary_image: section.settings.show_secondary_image,
+              add_image_padding: section.settings.add_image_padding,
+              show_vendor: section.settings.show_vendor,
+              show_image_outline: section.settings.show_image_outline,
+              show_rating: section.settings.show_rating %}
+          </li>
+        {% endfor %}
+       
+       </ul> </div> 
+      {% endif %}
+  	{% endfor %}</div>
+    {% if section.settings.btn_lablel !='' and section.settings.btn_link != blank %}
+    	<div class="mobile-show">
+      	<div class="featured-products-btn">
+            <a href="{{section.settings.btn_link}}" title="{{section.settings.btn_lablel}}">
+              <img src="{{ section.settings.image | img_url: '' }}">
+              {{section.settings.btn_lablel}}
+              <span class="featured-products-menu__buttons_icon buttons_icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.08 44.64"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M56.38,44.64a3,3,0,0,1-2.17-5.08L67.89,25.32H3a3,3,0,0,1,0-6H67.89L54.21,5.08A3,3,0,0,1,58.54.92l20.54,21.4L58.54,43.72A3,3,0,0,1,56.38,44.64Z"></path></g></g></svg>
+              </span>
+            </a>
+    	</div>
+    </div>
+      	{% endif %}
+  </div>
+</div>  
+
+{% schema %}
+  {
+    "name": "Shop Section",
+    "settings": [
+		{
+           "type": "text",
+           "id": "heading",
+           "label": "Heading"
+        },
+		{
+           "type": "text",
+           "id": "btn_lablel",
+           "label": "Button Label"
+        },
+		{
+           "type": "url",
+           "id": "btn_link",
+           "label": "Button Link"
+        },
+        {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Button Image"
+        }
+	],
+	"blocks": [
+    {
+		"type": "collection",
+        "name": "Collection List",
+        "settings": [
+            {
+               "type": "text",
+               "id": "heading",
+               "label": "Collection Heading"
+            },  	
+            {
+              "type": "collection",
+              "id": "collection",
+              "label": "Collection"
+            }
+		]
+	}
+	],
+	"presets": [
+    {
+      "name": "Shop Section"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<script>
+  $('.shop_listing .featured-products-menu li:first-child a').addClass('active');  
+  $('.shop_listing .product_tab').hide();
+  $('.shop_listing .product_listing .product_tab:first-child').show();
+  
+  $( ".shop_listing .featured-products-menu li a" ).click(function() {
+    	$('.shop_listing .featured-products-menu li a').removeClass('active');
+    	$('.shop_listing .product_tab').hide();
+    	$(this).addClass('active');  
+    	var cl_tab= $(this).attr('href');
+    	$(cl_tab).fadeIn();
+    return false;
+  });
+  
+// $( ".painting-title h3" ).click(function() {
+//   $('.painting-title h3').removeClass('active');
+//   $(this).addClass('active');
+//   var datas = $(this).data('title');
+//   $(".painting-image img").hide();
+//  $(".painting-image img[data-title='" + datas + "']").show();
+// });
+</script>
